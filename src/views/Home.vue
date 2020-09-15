@@ -11,9 +11,8 @@
       {{ product.name }}
       </v-card-title>        
       <v-card-subtitle> Precio: {{product.price}} </v-card-subtitle>
-      <v-card-actions>
-        <v-btn color="error">Agregar al carro</v-btn>
-        <v-btn to="/products"  color="purple" text>Ver detalless</v-btn>
+      <v-card-actions>        
+       <v-btn color="warning" :to="'/products/'+product.id">Ver más</v-btn>
         <v-spacer></v-spacer>       
       </v-card-actions>     
     </v-card>  
@@ -24,13 +23,15 @@
 
 <script>
 import {mapState, mapActions } from 'vuex'
+
 export default {
    data: () => ({
      show: false,
       search: ''
     }),
   name: 'Home',
-  components: {  
+  components: { 
+   
   },
   methods: {
     ...mapActions(['setProducts'])

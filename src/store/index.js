@@ -7,7 +7,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     products: [],
-    product: undefined
+    product: undefined,
+    cart: []
   },
   mutations: {
     SET_PRODUCTS(state, products){
@@ -16,6 +17,17 @@ export default new Vuex.Store({
     SET_PRODUCT(state, product){
       state.product = product
     },
+    ADD_CART(state, product){
+      state.cart.push(product)
+    },
+    REMOVE_CART(state, product){
+      let index = state.cart.indexOf(product)
+      if(index > -1){
+        state.cart.splice(index, 1)
+      }
+
+    //state.cart.splice(state.cart.indexOf(product, 1))
+    }
   },
   actions: {
     setProducts({commit}){
@@ -24,11 +36,19 @@ export default new Vuex.Store({
       })
     },
     setProduct({commit}, id){
-      axios.get(`http://makeup-api.herokuapp.com/api/v1/products.json?brand=maybelline/${id}`).then ((response) => {
+      axios.get(`http://makeup-api.herokuapp.com/api/v1/products.json?brand=maybelline/&${id}`).then ((response) => {
         commit('SET_PRODUCT', response.data)
       })
+    },   
+    addCart({commit}, product) {
+      commit('ADD_CART', product)
+    },    
+    removeCart({commit}, product){      
+     commit ('REMOVE_CART', product)
     },
+
   },
+  
   modules: {
   }
 })

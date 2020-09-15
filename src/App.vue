@@ -7,6 +7,8 @@
       <v-btn to="/" text>home</v-btn>
       <v-btn to="/products" text>Productos</v-btn>
       <v-spacer></v-spacer>
+        <v-btn color="success"> <v-icon>mdi-cart</v-icon>carro: {{carro}}</v-btn>   
+     <h1> </h1>
     </v-app-bar>
     <v-main>
       <router-view></router-view>
@@ -23,7 +25,15 @@
 </template> 
 
 <script>
+import { mapState} from "vuex";
 export default {
-  name:"app"
+  name:"app",
+
+ computed: {
+   ...mapState(["cart"]),
+    carro() {
+      return this.cart.length;
+    },
+ },
 }
 </script>
